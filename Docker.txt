@@ -1,0 +1,220 @@
+## 🐳 **Docker: Simple Definition**
+
+**Docker** is a tool that lets you:
+
+* **Package your application** and everything it needs (code, libraries, OS) into a **container**
+* Run the container on **any system** — no “it works on my machine” issues!
+
+---
+
+## 🧱 **What Is a Container?**
+
+A **container** is like a mini-computer running inside your computer:
+
+* Has its own filesystem, code, and libraries
+* Runs in isolation
+* Lightweight and fast (compared to virtual machines)
+
+---
+
+## 📦 **What Is a Docker Image?**
+
+A **Docker image** is a template used to create containers.
+
+* Like a recipe or blueprint
+* Contains OS + app + everything it needs
+
+You run containers **from images**.
+
+---
+
+## 🛠️ Common Docker Commands (with Examples)
+
+### 🔍 1. Check Docker version
+
+```bash
+docker --version
+```
+
+---
+
+### 📥 2. Download an image
+
+```bash
+docker pull nginx
+```
+
+⬅️ Downloads the `nginx` web server image
+
+---
+
+### 🚀 3. Run a container
+
+```bash
+docker run nginx
+```
+
+Runs an Nginx container (from the image)
+
+Add flags to customize it:
+
+```bash
+docker run -d -p 8080:80 nginx
+```
+
+* `-d`: detached (run in background)
+* `-p`: map your port 8080 → container’s port 80
+
+---
+
+### 📋 4. List running containers
+
+```bash
+docker ps
+```
+
+List **all** containers (even stopped):
+
+```bash
+docker ps -a
+```
+
+---
+
+### 🛑 5. Stop a container
+
+```bash
+docker stop <container_id>
+```
+
+Delete a container:
+
+```bash
+docker rm <container_id>
+```
+
+---
+
+### 🗑️ 6. Remove an image
+
+```bash
+docker rmi <image_name>
+```
+
+---
+
+### 🧱 7. Build your own image
+
+You need a `Dockerfile`, then:
+
+```bash
+docker build -t my-image-name .
+```
+
+---
+
+### 🧪 8. Run a container with shell access
+
+```bash
+docker run -it ubuntu bash
+```
+
+* `-it`: interactive terminal
+* Runs Ubuntu and gives you a shell
+
+---
+
+### 📦 9. Volumes (store data)
+
+```bash
+docker run -v mydata:/data ubuntu
+```
+
+Creates a named volume `mydata` and mounts it to `/data`
+
+---
+
+### 🧼 10. Clean up space
+
+See what's taking space:
+
+```bash
+docker system df
+```
+
+Clean everything unused:
+
+```bash
+docker system prune
+```
+
+⚠️ Be careful: this deletes stopped containers, unused images, etc.
+
+---
+
+## 📁 Dockerfile (Simple Example)
+
+```Dockerfile
+# Use a base image
+FROM node:18
+
+# Set working directory
+WORKDIR /app
+
+# Copy files
+COPY . .
+
+# Install dependencies
+RUN npm install
+
+# Run the app
+CMD ["node", "index.js"]
+```
+
+Build and run:
+
+```bash
+docker build -t my-node-app .
+docker run -p 3000:3000 my-node-app
+```
+
+---
+
+## 🧠 Bonus: Docker Compose (Optional)
+
+If you have **multiple services** (e.g., app + database), use `docker-compose.yml`:
+
+```yaml
+version: '3'
+services:
+  web:
+    image: nginx
+    ports:
+      - "8080:80"
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+```
+
+Run:
+
+```bash
+docker-compose up
+```
+
+---
+
+## ✅ Summary Table
+
+| Action           | Command                     |
+| ---------------- | --------------------------- |
+| Download image   | `docker pull <name>`        |
+| Run container    | `docker run <image>`        |
+| List containers  | `docker ps`                 |
+| Stop container   | `docker stop <id>`          |
+| Remove container | `docker rm <id>`            |
+| Remove image     | `docker rmi <name>`         |
+| Build image      | `docker build -t <name> .`  |
+| Enter container  | `docker exec -it <id> bash` |
+
