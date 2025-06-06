@@ -218,3 +218,7 @@ docker-compose up
 | Build image      | `docker build -t <name> .`  |
 | Enter container  | `docker exec -it <id> bash` |
 
+
+
+*ingect .env variable
+      ~docker run -p port:port -e db_url=" " image_name
